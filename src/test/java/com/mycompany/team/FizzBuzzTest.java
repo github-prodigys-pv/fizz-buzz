@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class FizzBuzzTest {
 
@@ -44,10 +46,10 @@ public class FizzBuzzTest {
 
     @Test()
     public void nonRegressionTest_executionWithNumberLowerThan0AndMultipleOf3ThrowsError() {
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             instance.execute(-3);
         });
-        
+
     }
 
     @Test
@@ -69,6 +71,11 @@ public class FizzBuzzTest {
             testWith(i, String.valueOf(i));
         }
     }
-    
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2,4,7,11,22,101,1001}) 
+    public void dataDrivenTestWithNumbersThatAreNotMultipleOf3And5(int number) {
+        testWith(number, String.valueOf(number));
+    }
 
 }
